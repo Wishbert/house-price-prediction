@@ -46,5 +46,29 @@ These instructions will get you a copy of the project up and running on your loc
     median_house_value    
     ocean_proximity       
 ```
+## Creating a Test set
+I created the test before before looking at the data, I am creating it at the beginning to avoid data snooping. I do not want to find what my mind thinks is interesting and use that in deciding which machine learning model to use.
 
-## Data Cleaning
+* I made income categories because income is very important in estimating the housing value. I used the below code snippet.
+
+    ```python
+    housing['income_cat'] = np.ceil(housing.median_income/1.5) 
+    housing.income_cat.where(housing.income_cat<5, 5, inplace=True)
+    ```
+
+* I used the income categories to randomly stratify and create representative training and test sets.
+    ```python
+    from sklearn.model_selection import StratifiedShuffleSplit
+
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+    for train_index, test_index in split.split(housing, housing.income_cat):
+        train_data = housing.iloc[train_index]
+        test_data = housing.iloc[test_index]
+    ```
+* I removed the income category from both and train and testing set.
+* I saved the training and testing sets to files for easy access.
+
+## EDA
+
+
+
