@@ -69,6 +69,16 @@ I created the test before before looking at the data, I am creating it at the be
 * I saved the training and testing sets to files for easy access.
 
 ## EDA
+### The below visualisations are merely highlights of exploratory analyses.
+I looked at distributions and counts of the attributes.
 
+![Histograms](images/counts.png)
+
+I looked at the geographical distribution of housing value and populations. 
+
+![GeographicalScatter](images/scatter.png)
+
+The median income has the most highest correlation with median house value. 
+![Scatter](images/scatter_mhv_vs_mi.png)
 
 
