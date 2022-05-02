@@ -160,7 +160,7 @@ I passed the testing data through the pipeline.
 The model's performance on the test data
 * The RMSE = 47970.72.
 
-fksfjsaiodhvoailskjflidksjflgrghjflksdjlghdnslkfjglkjsdjflkjlskajflkjaslkfghjlksjagiklajslkgj
-# _______________________________________________________________
+
+# _____________________________________
 
 
