@@ -82,3 +82,20 @@ The median income has the most highest correlation with median house value.
 ![Scatter](images/scatter_mhv_vs_mi.png)
 
 
+## Model Building
+I first made a datapipeline.
+
+* What the pipeline does:
+    * Selects the numerical attributes from the datasets.
+    * Fits the missing values with the median value.
+    * Combines some of the attributes to make new ones.
+        * Created `rooms_per_household = total_room/total_bedrooms` 
+        * Created `population_per_household = population/household`
+        Created `bedrooms_per_room = total_bedrooms/total_rooms` with option to use it or not.
+    * Scales the data using standard scaler.
+    * Select the categorical attributes from the datasets.
+    * Create LabelBinary
+
+
+
+
