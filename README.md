@@ -43,8 +43,9 @@ These instructions will get you a copy of the project up and running on your loc
     population            
     households            
     median_income         
-    median_house_value    
-    ocean_proximity       
+    median_house_value - the target attribute   
+    ocean_proximity 
+
 ```
 ## Creating a Test set
 I created the test before before looking at the data, I am creating it at the beginning to avoid data snooping. I do not want to find what my mind thinks is interesting and use that in deciding which machine learning model to use.
@@ -96,6 +97,70 @@ I first made a datapipeline.
     * Select the categorical attributes from the datasets.
     * Create LabelBinary
 
+I tried three models and evaluated them using the RMSE.
 
+* Linear Regression - I used it as a baseline model.
+* DecisionTreeRegressor - I thought it could detect the non linear relationships between the attributes and the target label.
+* RandomForestRegressor - I thought since it is an ensemble model it will do very well.
+
+The linear model was underfitting to the training data.
+
+The Decision Tree model was overfitting to the train data. The RMSE on the training data was zero.
+
+The Random Forest Regressor is also overfitting to the training data.
+
+I tried cross validation on the models.
+
+```python
+score = cross_val_score(
+    lin_reg,
+    housing_num,
+    housing_labels,
+    scoring='neg_mean_squared_error',
+    cv=10
+)
+```
+The RMSE of the models is as follows:
+
+* Linear Regression = 70118.16
+* DecisionTreeRegressor = 70086.40
+* RandomForestRegressor = 50281.19
+
+### Hyperparameter Tuning 
+I chose to do hyperparameter tuning on the RandomForestRegressor.
+
+```python
+param_grid = [
+    {'n_estimators': [3, 10, 30], 'max_features': [2, 4, 6, 8]},
+    {'bootstrap': [False], 'n_estimators': [3, 10], 'max_features': [2, 3, 4]},
+]
+
+grid_search = GridSearchCV(
+    forest_reg,
+    param_grid,
+    cv=5,
+    scoring='neg_mean_squared_error'
+)
+
+grid_search.fit(
+    housing_prepared,
+    housing_labels
+)
+```
+
+## Model Perfomance
+The RandomForestRegressor has improved after tuning.
+
+The best model has `max_features = 6` and `n_estimators = 30`. 
+
+I used the testing data to test the best model.
+
+I passed the testing data through the pipeline.
+
+The model's performance on the test data
+* The RMSE = 47970.72.
+
+
+# _______________________________________________________________
 
 
